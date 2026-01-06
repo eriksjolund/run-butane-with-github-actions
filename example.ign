@@ -23,6 +23,7 @@
           "name": "root"
         },
         "contents": {
+          "compression": "",
           "source": "data:,Just%20some%20example%20text%20...%0A"
         },
         "mode": 420
