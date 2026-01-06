@@ -1,0 +1,27 @@
+name: butane
+on: 
+  push:
+    branch:
+      - main
+
+jobs:
+  run_butane:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+      - run: |
+          mkdir output
+      - uses: docker://quay.io/coreos/butane:release
+        with:
+          args: --pretty --strict -d ./files -o output/example.ign example.bu
+      - uses: actions/upload-artifact@v6
+        with:
+          name: example.ign
+          path: output/example.ign
+      - name: deploy
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./output
